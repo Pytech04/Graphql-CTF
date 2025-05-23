@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  graphql-ctf:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - FLASK_ENV=production
+      - DATABASE_URL=sqlite:///data/ctf_challenge.db
+    restart: unless-stopped
+    
+  # Optional: Add a simple nginx proxy for production
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - graphql-ctf
+    restart: unless-stopped

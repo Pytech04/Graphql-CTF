@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overexposed API - GraphQL IDOR CTF Challenge</title>
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/fontawesome.min.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <!-- Header -->
+                <div class="text-center mb-5">
+                    <div class="d-inline-block p-3 rounded-circle bg-danger bg-opacity-10 mb-3">
+                        <i class="fas fa-bug fa-2x text-danger"></i>
+                    </div>
+                    <h1 class="display-4 fw-bold text-light">Overexposed API</h1>
+                    <p class="lead text-muted">GraphQL IDOR Vulnerability Challenge</p>
+                    <div class="badge bg-warning text-dark fs-6 px-3 py-2">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        Educational CTF Challenge
+                    </div>
+                </div>
+
+                <!-- Challenge Overview -->
+                <div class="card border-secondary mb-4">
+                    <div class="card-header bg-secondary bg-opacity-25">
+                        <h3 class="card-title mb-0">
+                            <i class="fas fa-crosshairs me-2 text-danger"></i>
+                            Challenge Objective
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            You've discovered a GraphQL API endpoint that appears to have security vulnerabilities. 
+                            Your mission is to exploit an <strong>Insecure Direct Object Reference (IDOR)</strong> 
+                            vulnerability to access sensitive user data and retrieve the hidden flag.
+                        </p>
+                        <div class="alert alert-info border-info">
+                            <i class="fas fa-flag me-2"></i>
+                            <strong>Goal:</strong> Find and extract the CTF flag from the admin user's profile.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Getting Started -->
+                <div class="card border-secondary mb-4">
+                    <div class="card-header bg-secondary bg-opacity-25">
+                        <h4 class="card-title mb-0">
+                            <i class="fas fa-play-circle me-2 text-success"></i>
+                            Getting Started
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-network-wired me-2 text-primary"></i>API Endpoints</h5>
+                                <ul class="list-unstyled">
+                                    <li class="mb-2">
+                                        <code class="bg-dark p-2 rounded">/graphql</code>
+                                        <small class="text-muted d-block">GraphQL API endpoint</small>
+                                    </li>
+                                    <li class="mb-2">
+                                        <code class="bg-dark p-2 rounded">/graphql?query={...}</code>
+                                        <small class="text-muted d-block">Execute GraphQL queries</small>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-tools me-2 text-warning"></i>Available Tools</h5>
+                                <ul class="list-unstyled">
+                                    <li class="mb-2">
+                                        <i class="fas fa-check-circle text-success me-2"></i>
+                                        GraphiQL Interactive Interface
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="fas fa-check-circle text-success me-2"></i>
+                                        Schema Introspection Enabled
+                                    </li>
+                                    <li class="mb-2">
+                                        <i class="fas fa-check-circle text-success me-2"></i>
+                                        Query Documentation
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="text-center">
+                    <a href="/graphql" class="btn btn-primary btn-lg me-3">
+                        <i class="fas fa-rocket me-2"></i>
+                        Launch GraphiQL Interface
+                    </a>
+                    <a href="/challenge" class="btn btn-outline-secondary btn-lg">
+                        <i class="fas fa-book me-2"></i>
+                        View Challenge Details
+                    </a>
+                </div>
+
+                <!-- Footer Info -->
+                <div class="mt-5 text-center">
+                    <div class="card border-warning bg-warning bg-opacity-10">
+                        <div class="card-body">
+                            <h6 class="text-warning mb-2">
+                                <i class="fas fa-shield-alt me-2"></i>
+                                Educational Purpose
+                            </h6>
+                            <p class="small text-muted mb-0">
+                                This challenge is designed for cybersecurity education. 
+                                It demonstrates real-world GraphQL security vulnerabilities in a safe, controlled environment.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+</body>
+</html>
