@@ -9,9 +9,8 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements and install Python dependencies
-COPY pyproject.toml uv.lock ./
-RUN pip install uv && uv sync --frozen
+# Install Python dependencies directly
+RUN pip install flask flask-sqlalchemy flask-graphql graphene graphene-sqlalchemy gunicorn psycopg2-binary
 
 # Copy application code
 COPY . .
