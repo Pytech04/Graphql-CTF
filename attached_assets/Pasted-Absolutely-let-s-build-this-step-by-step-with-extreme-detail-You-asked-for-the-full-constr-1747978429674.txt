@@ -1,0 +1,235 @@
+Absolutely — let's build this **step-by-step with extreme detail**.
+
+You asked for the **full construction guide** for a **GraphQL + IDOR CTF challenge in Flask with Docker support**, so here’s **exactly how to build the “Overexposed API” challenge**, from scratch to final deployment.
+
+---
+
+# 🔨 Full Construction Guide: GraphQL IDOR CTF Challenge
+
+## 🧰 Tech Stack
+
+* Python 3.11+
+* Flask (`web framework`)
+* Graphene (`GraphQL library`)
+* SQLite (`user data`)
+* Docker (`isolate & deploy`)
+
+---
+
+## 📁 Final Project Structure
+
+```bash
+graphql_idor_ctf/
+├── app/
+│   ├── __init__.py
+│   ├── models.py
+│   ├── schema.py
+│   └── app.py
+├── data/
+│   └── users.db
+├── Dockerfile
+├── requirements.txt
+└── README.md
+```
+
+---
+
+## ✅ Step-by-Step Guide
+
+### 🥇 Step 1: Create the folder
+
+```bash
+mkdir graphql_idor_ctf && cd graphql_idor_ctf
+mkdir app data
+touch app/__init__.py app/app.py app/models.py app/schema.py requirements.txt Dockerfile README.md
+```
+
+---
+
+### 📦 Step 2: `requirements.txt`
+
+```txt
+Flask==2.3.2
+graphene==3.3
+Flask-GraphQL==2.0.1
+flask_sqlalchemy==3.1.1
+```
+
+---
+
+### 🧱 Step 3: `app/models.py`
+
+```python
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), nullable=False)
+    email = db.Column(db.String(120), nullable=False)
+    flag = db.Column(db.String(255), nullable=True)
+```
+
+---
+
+### 🧠 Step 4: `app/schema.py` (GraphQL types + queries)
+
+```python
+import graphene
+from graphene_sqlalchemy import SQLAlchemyObjectType
+from .models import User, db
+
+class UserType(SQLAlchemyObjectType):
+    class Meta:
+        model = User
+        fields = ("id", "username", "email", "flag")
+
+class Query(graphene.ObjectType):
+    me = graphene.Field(UserType)
+    user = graphene.Field(UserType, id=graphene.Int(required=True))
+
+    def resolve_me(root, info):
+        # Dummy login context: always return user id 1
+        return db.session.get(User, 1)
+
+    def resolve_user(root, info, id):
+        # ⚠️ IDOR VULNERABILITY: No permission check
+        return db.session.get(User, id)
+
+schema = graphene.Schema(query=Query)
+```
+
+---
+
+### 🚀 Step 5: `app/app.py` (Flask app)
+
+```python
+from flask import Flask
+from flask_graphql import GraphQLView
+from .models import db
+from .schema import schema
+
+def create_app():
+    app = Flask(__name__)
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///../data/users.db"
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    db.init_app(app)
+
+    app.add_url_rule(
+        "/graphql",
+        view_func=GraphQLView.as_view(
+            "graphql", schema=schema, graphiql=True  # graphiql UI enabled
+        ),
+    )
+
+    return app
+```
+
+---
+
+### 🧱 Step 6: `app/__init__.py`
+
+```python
+from .app import create_app
+
+app = create_app()
+```
+
+---
+
+### 🧪 Step 7: Seed the database
+
+Create this script to pre-populate:
+
+```bash
+touch seed.py
+```
+
+```python
+# seed.py
+from app.models import db, User
+from app.app import create_app
+
+app = create_app()
+
+with app.app_context():
+    db.drop_all()
+    db.create_all()
+
+    users = [
+        User(id=1, username="attacker", email="attacker@ctf.com", flag=None),
+        User(id=2, username="victim", email="victim@ctf.com", flag=None),
+        User(id=3, username="admin", email="admin@ctf.com", flag="ctf{leaked_graphql_data}")
+    ]
+
+    db.session.add_all(users)
+    db.session.commit()
+    print("Database seeded.")
+```
+
+Then run:
+
+```bash
+python seed.py
+```
+
+---
+
+### 🐳 Step 8: Dockerfile
+
+```Dockerfile
+FROM python:3.11-slim
+
+WORKDIR /ctf
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY app ./app
+COPY data ./data
+
+EXPOSE 5000
+
+CMD ["python", "-m", "app"]
+```
+
+---
+
+### 📝 Step 9: `README.md`
+
+```md
+# Overexposed API — GraphQL + IDOR CTF
+
+- Start server: `docker build -t graphql_idor . && docker run -p 5000:5000 graphql_idor`
+- Access GraphQL UI at: `http://localhost:5000/graphql`
+
+## 🎯 Goal
+
+- Use introspection to find available queries
+- Exploit IDOR via `user(id: 3)` to leak the flag: `ctf{leaked_graphql_data}`
+```
+
+---
+
+## 🎮 Final Notes
+
+* ✅ **Endpoint**: `http://localhost:5000/graphql`
+* ✅ **User 1** is attacker
+* ✅ **User 3** has the **flag**
+* ✅ **No authentication checks in `user(id)`**
+
+---
+
+## 🧠 Want Optional Add-ons?
+
+Let me know and I’ll add:
+
+* JWT Authentication
+* Hidden fields in introspection
+* Fake `isAdmin` flag
+* Frontend (React or simple HTML)
+
+---
+
+Would you like me to generate a **ZIP download** or **GitHub pushable repo** version too?
