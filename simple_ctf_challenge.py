@@ -49,8 +49,14 @@ class Query(graphene.ObjectType):
         return None
     
     def resolve_all_users(self, info):
-        """Returns all users - also problematic"""
-        return [User(**user_data) for user_data in USERS_DATA[:3]]  # Limit to first 3
+        """Returns all users - but WITHOUT flag data to force IDOR exploitation"""
+        limited_users = []
+        for user_data in USERS_DATA[:3]:
+            # Hide flag data - force students to use the user(id) IDOR vulnerability
+            safe_user = user_data.copy()
+            safe_user["flag"] = None
+            limited_users.append(User(**safe_user))
+        return limited_users
 
 schema = graphene.Schema(query=Query)
 

@@ -9,36 +9,36 @@ def seed_database():
         users_data = [
             {
                 'id': 1,
-                'username': 'attacker',
-                'email': 'attacker@example.com',
+                'username': 'pyt3ch',
+                'email': 'pyt3ch@ctfnfsu.com',
                 'role': 'user',
                 'flag': None
             },
             {
                 'id': 2,
                 'username': 'victim',
-                'email': 'victim@example.com', 
+                'email': 'victim@ctfnfsu.com', 
                 'role': 'user',
                 'flag': None
             },
             {
                 'id': 3,
                 'username': 'admin',
-                'email': 'admin@ctfsecure.com',
+                'email': 'admin@ctfnfsu.com',
                 'role': 'admin',
-                'flag': 'CTF{graphql_idor_pwned_2024}'
+                'flag': 'CTF{graphql_love_leak_idor_flame}'
             },
             {
                 'id': 4,
                 'username': 'support',
-                'email': 'support@example.com',
+                'email': 'support@ctfnfsu.com',
                 'role': 'support',
                 'flag': None
             },
             {
                 'id': 5,
                 'username': 'guest',
-                'email': 'guest@example.com',
+                'email': 'guest@ctfnfsu.com',
                 'role': 'guest',
                 'flag': None
             }

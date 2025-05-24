@@ -53,11 +53,14 @@ class Query(graphene.ObjectType):
     
     def resolve_all_users(self, info):
         """
-        Returns all users - also problematic as it exposes user enumeration
-        But participants need to discover the specific user(id) query
+        Returns all users - but WITHOUT sensitive flag data
+        This forces students to use the specific user(id) IDOR vulnerability
         """
-        # Limit to first 10 users to not make it too obvious
-        return User.query.limit(10).all()
+        users = User.query.limit(10).all()
+        # Hide flag data in the all_users query - force IDOR exploitation
+        for user in users:
+            user.flag = None
+        return users
 
 # Create the GraphQL schema
 schema = graphene.Schema(query=Query)
