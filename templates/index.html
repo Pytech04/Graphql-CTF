@@ -1,86 +1,149 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pyt3ch Support Gateway</title>
-    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/fontawesome.min.css') }}" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pyt3ch Support Gateway</title>
+  <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/fontawesome.min.css') }}" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background: radial-gradient(circle at center, #020617, #0f172a);
+      font-family: 'Orbitron', 'Segoe UI', monospace;
+      color: #c0fefe;
+      overflow-x: hidden;
+    }
+
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
+    .glow {
+      text-shadow: 0 0 10px #00f2ff, 0 0 20px #00f2ff, 0 0 40px #0ff;
+    }
+
+    .text-gradient {
+      background: linear-gradient(90deg, #00f2ff, #7ef9ff, #00f2ff);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: glow-text 4s linear infinite;
+    }
+
+    @keyframes glow-text {
+      0% { background-position: 0% center; }
+      50% { background-position: 100% center; }
+      100% { background-position: 0% center; }
+    }
+
+    .terminal-box {
+      background: rgba(0, 10, 20, 0.5);
+      border: 2px solid #00f2ff;
+      box-shadow: 0 0 15px #00f2ff;
+      backdrop-filter: blur(8px);
+      border-radius: 12px;
+      padding: 2rem;
+    }
+
+    .neon-input {
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid #0ff;
+      color: #7ef9ff;
+    }
+
+    .neon-input:disabled {
+      opacity: 0.6;
+    }
+
+    .btn-glow {
+      border: 1px solid #0ff;
+      color: #0ff;
+      background-color: transparent;
+      text-shadow: 0 0 8px #0ff;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+    }
+
+    .btn-glow:disabled {
+      opacity: 0.5;
+    }
+
+    .card-ctf {
+      border: 1px solid #ffc107;
+      background-color: rgba(255, 193, 7, 0.1);
+      box-shadow: 0 0 12px #ffc10744;
+    }
+
+    code {
+      color: #ffee58;
+    }
+
+    .header-icon {
+      animation: pulse 3s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.7; }
+    }
+  </style>
 </head>
 <body>
-    <div class="container py-5">
-        <div class="row justify-content-center">
-            <div class="col-lg-10">
-                
-                <!-- Header -->
-                <div class="text-center mb-5">
-                    <div class="d-inline-block p-3 rounded-circle bg-info bg-opacity-10 mb-3 shadow">
-                        <i class="fas fa-shield-alt fa-2x text-info"></i>
-                    </div>
-                    <h1 class="display-4 fw-bold text-gradient">Pyt3ch Support Gateway</h1>
-                    <p class="lead text-muted fst-italic">Sound of systems unseen. A veil over logic divine.</p>
-                </div>
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-10 text-center">
 
-                <!-- Cosmic Notice -->
-                <div class="alert alert-secondary border-info shadow-sm">
-                    <i class="fas fa-asterisk me-2 text-info"></i>
-                    <span class="fw-semibold">Yearning to glimpse the unseen?</span> Even the stars hide their architecture behind the illusion of order.
-                </div>
-
-                <div class="card border-info shadow-sm mb-4 bg-dark bg-opacity-25">
-                    <div class="card-header border-info text-info bg-dark bg-opacity-10">
-                        <h4 class="card-title mb-0">
-                            <i class="fas fa-user-secret me-2 text-info"></i>
-                            Internal Access Portal
-                        </h4>
-                    </div>
-                    <div class="card-body">
-                        <form action="#" method="post" onsubmit="alert('login?.API?')">
-                            <div class="mb-3">
-                                <label class="form-label text-light">Username</label>
-                                <input type="text" class="form-control bg-dark text-light" placeholder="" disabled>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label text-light">Password</label>
-                                <input type="password" class="form-control bg-dark text-light" disabled>
-                            </div>
-                            <button type="submit" class="btn btn-outline-info" disabled>Login</button>
-                        </form>
-                    </div>
-                </div>
-
-                <!-- Insight Section -->
-                <div class="text-center mt-4">
-                    <p class="text-muted small">🧭 <em>API gateway heartbeat detected. Routing introspective queries...</em></p>
-                    <p class="fst-italic text-info-emphasis">“Introspection reveals itself only to those who question what lies beneath the obvious.”</p>
-                </div>
-
-                <div class="mt-5 text-center">
-                    <div class="card border-warning bg-warning bg-opacity-10 shadow-sm">
-                        <div class="card-body">
-                            <h6 class="text-warning mb-2">
-                                <i class="fas fa-flask me-2"></i>
-                                Cybersecurity Challenge Zone
-                            </h6>
-                            <p class="small text-muted mb-0"><br>
-                                Seek the <code>CTF{...}</code> hidden in plain APIs.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+        <!-- Header -->
+        <div class="mb-5">
+          <div class="d-inline-block p-4 rounded-circle bg-dark border border-info shadow-lg header-icon">
+            <i class="fas fa-shield-alt fa-2x text-info glow"></i>
+          </div>
+          <h1 class="display-3 fw-bold mt-4 text-gradient">Pyt3ch Support Gateway</h1>
+          <p class="lead text-info fst-italic glow">Sound of systems unseen. A veil over logic divine.</p>
         </div>
+
+        <!-- Cosmic Notice -->
+        <div class="alert alert-dark border-info shadow glow">
+          <i class="fas fa-asterisk me-2 text-info"></i>
+          <span class="fw-semibold">Yearning to glimpse the unseen?</span> Even the stars hide their architecture behind the illusion of order.
+        </div>
+
+        <!-- Login Terminal -->
+        <div class="terminal-box mt-4 mb-5 text-start">
+          <h4 class="mb-4 text-info glow">
+            <i class="fas fa-user-secret me-2"></i>Internal Access Portal
+          </h4>
+          <form onsubmit="alert('login?.API?')" method="post">
+            <div class="mb-3">
+              <label class="form-label text-light">Username</label>
+              <input type="text" class="form-control neon-input" disabled>
+            </div>
+            <div class="mb-3">
+              <label class="form-label text-light">Password</label>
+              <input type="password" class="form-control neon-input" disabled>
+            </div>
+            <button class="btn btn-glow w-100" type="submit" disabled>Access Restricted</button>
+          </form>
+        </div>
+
+        <!-- Insight -->
+        <div class="text-center mt-4">
+          <p class="text-muted small glow">🧭 <em>API gateway heartbeat detected. Routing introspective queries...</em></p>
+          <p class="fst-italic text-info-emphasis">“Introspection reveals itself only to those who question what lies beneath the obvious.”</p>
+        </div>
+
+        <!-- CTF Section -->
+        <div class="mt-5">
+          <div class="card card-ctf shadow text-center p-4">
+        
+            <p class="small text-light">
+              Seek the <code>CTF{...}</code> hidden in plain APIs.
+            </p>
+          </div>
+        </div>
+
+      </div>
     </div>
+  </div>
 
-    <style>
-        .text-gradient {
-            background: linear-gradient(to right, #00b4d8, #48cae4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-    </style>
-
-    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
 </body>
 </html>
