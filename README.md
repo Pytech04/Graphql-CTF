@@ -1,40 +1,56 @@
 # Graphql-CTF
 
-> GraphQL-focused CTF challenges and practice materials.
-
 [![GitHub](https://img.shields.io/badge/GitHub-Pytech04/Graphql--CTF-blue)](https://github.com/Pytech04/Graphql-CTF)
 [![Focus](https://img.shields.io/badge/Focus-GraphQL%20Security-purple)](https://github.com/Pytech04/Graphql-CTF)
-[![Language](https://img.shields.io/badge/Language-JavaScript%20%7C%20Python-yellow)](https://github.com/Pytech04/Graphql-CTF)
+[![Language](https://img.shields.io/badge/Language-Python%20%7C%20Flask-3776AB)](https://github.com/Pytech04/Graphql-CTF)
+[![CTF](https://img.shields.io/badge/Category-API%20Security-red)](https://github.com/Pytech04/Graphql-CTF)
 
-## 📋 Overview
+## Overview
 
-Practice repository for GraphQL security challenges covering common vulnerabilities in GraphQL APIs including introspection, injection, authorization bypasses, and schema abuse.
+Hands-on GraphQL API security CTF. Built with Flask, Graphene, and SQLAlchemy - practice introspection, authorization bypass, and common GraphQL attack vectors.
 
-## 🎯 Topics Covered
+## Structure
 
-- GraphQL introspection & schema disclosure
-- Query injection / aliasing attacks
-- Authorization flaws in resolvers
-- Denial of Service (DoS) vectors
-- Information disclosure
+- `app.py`, `main.py` - Flask app with GraphQL endpoint (`/graphql`, GraphiQL enabled)
+- `schema.py` - GraphQL schema/queries/mutations
+- `models.py` - Database models
+- `seed.py` - Initial data
+- `templates/` - Challenge UI
 
-## 🚀 Quick Start
+## Getting Started
 
 ```bash
 git clone https://github.com/Pytech04/Graphql-CTF.git
 cd Graphql-CTF
-# Set up and explore challenges
+pip install -r requirements.txt
+python main.py
 ```
 
-## 📚 Resources
+Access: `http://localhost:5000` | GraphQL: `http://localhost:5000/graphql`
 
-- [GraphQL Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/GraphQL_Cheat_Sheet.html)
-- [OWASP GraphQL Security](https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/12-API_Testing/01-Testing_GraphQL)
+## Attack Vectors
 
-## ⚠️ Ethical Use
+- Introspection & schema enumeration
+- Excessive data exposure / over-fetching
+- Authorization bypass in resolvers
+- Query depth/complexity abuses
+- IDOR via GraphQL queries
+
+## Tech Stack
+
+- Flask + Flask-GraphQL + Graphene
+- SQLAlchemy + SQLite
+- Jinja2 templates
+
+## Resources
+
+- [OWASP GraphQL Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/GraphQL_Cheat_Sheet.html)
+- [PortSwigger GraphQL Labs](https://portswigger.net/web-security/graphql)
+
+## Disclaimer
 
 For educational and authorized CTF practice only.
 
-## 🔗 Author
+## Author
 
 [Pytech04](https://github.com/Pytech04)
